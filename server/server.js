@@ -1,9 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const passport = require('passport');
-const configApiConnection = require('./config/setToken');
-
+const cors = require('cors');
+const routes = require('./routes');
+const api_conf = require('./config/thetvdb_api_configuration');
+const db_conf = require('./config/db_configuration');
+const { db } = require('./models/User');
 
 require('dotenv').config({
   path: 'variables.env'
@@ -12,13 +13,14 @@ require('dotenv').config({
 const app = express();
 const port = process.env.PORT || 5506;
 
+app.use(express.json())
 app.use(passport.initialize());
+app.use(cors());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(passport.initialize());
+require("./config/passport_config")(passport);
 
-// app.use('/',routes);
-
+app.use('/', routes);
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401);
@@ -26,9 +28,9 @@ app.use(function (err, req, res, next) {
   }
 });
 
-// first ser token
-configApiConnection.setToken();
-
+// configuration on server load
+db_conf.connectToDB();
+api_conf.setToken();
 
 
 

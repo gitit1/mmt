@@ -1,0 +1,32 @@
+.user{
+    .registrer-section{
+        .title{
+            color: #fff;
+            padding-top: 0.4125rem;
+            padding-bottom: 0.5125rem;
+            font-size: 2.55rem;
+            line-height: inherit;
+            white-space: nowrap;
+            text-align: center;
+        }
+        .card-wrapper{
+            display: flex;
+            justify-content: center;
+            padding: 5%;
+            // height: 60vh;
+            .form-card{
+                width: 90%;
+                display: flex;
+                align-content: center;
+                form{
+                    display: flex;
+                    flex-direction: column;
+                    button{
+                        width: 100px;
+                        align-self: center;
+                    }
+                }
+            }
+        }
+    }
+}
