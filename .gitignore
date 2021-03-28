@@ -63,6 +63,7 @@ typings/
 # next.js build output
 .next
 
+config/
 config/keys.js
 package.json*
 package-lock.json*

@@ -1,5 +1,37 @@
 # track-my-series
 
+## Scanner
+
+- For each path **[paths handler - server/client]**
+	-	Loop throght directories (if empty return message)
+		- for each directory:
+			- if folder is empty [wanted list - folder unmatched (later - option to go and add)]
+			- else check if series in series collection , if not [wanted list - folder unmatched]
+				- if can't find 'poster.jpg' [wanted - media missing - poster (later - option to go and add)]
+				- check if missing season, if so [wanted - seasons]
+				- for each season
+					- if can't find 'seXXX.jpg' [wanted - media missing - season poster (later - option to go and add)]
+					- for each folder:
+						- check if missing media (the ep)
+						- check for subs
+						- check if ep folder missing
+						- if was in wanted (missing) and now is there - delete from mising and update notifications?
+
+- TODO: 
+	- api:
+		- search for series
+		- add only media: poster, season posters, banner, backgorund
+		- for scanner - get series by id
+	- series:
+		- add series to user series
+		- add wanted notificaitons
+- option to click and open file to watch (go to server -> open file?)
+
+
+Client| -- |Server| -- |API|
+|:--:|:--:|:--:|:--:|:--:|
+|• series, • episodes | --- | • User, • series  | --- | • Local series, • local episodes
+
  - how to devide the folder/files/component?
  - when login - need to load json file , if dosent find - open a sign up page
  for now i'm skipping this part
@@ -17,9 +49,7 @@
 
 😵😵😵😵😵😵😵😵
 
-|API-SITE| -- |OUR-API| -- |FILE SYSTEM|
-|:--:|:--:|:--:|:--:|:--:|
-|• series, • episodes | --- | • User, • series  | --- | • Local series, • local episodes
+|
 
 
 ### User

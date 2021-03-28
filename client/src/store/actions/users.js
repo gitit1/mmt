@@ -21,21 +21,22 @@ export const loginSuccess = (token, message) => {
     console.log('loginSuccess:', token, message)
     const decodedToekn = jwt_decode(token);
     const currentTime = Date.now() / 1000;
-
-    setAuthToken(token);
     if (decodedToekn.exp < currentTime) {
+        localStorage.removeItem("mmtToken");
+        setAuthToken(false);
         window.location.href = "/";
         return;
     } else {
+        setAuthToken(token);
         return {
             type: LOGIN,
             user: decodedToekn,
-            message: message
+            message: message||'Logged In!'
         }
     }
 }
 
-export const userFail = (data) => {
+const userFail = (data) => {
     console.log('userFail:', data)
     return {
         type: ERROR,
