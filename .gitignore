@@ -37,6 +37,7 @@ backups/
 node_modules/
 jspm_packages/
 
+config/
 
 # TypeScript v1 declaration files
 typings/
@@ -62,7 +63,6 @@ typings/
 
 # next.js build output
 .next
-
 
 package.json*
 package-lock.json*
