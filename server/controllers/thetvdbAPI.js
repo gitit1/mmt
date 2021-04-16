@@ -26,12 +26,10 @@ const getUrl = (type, id, language) => {
 }
 
 exports.search = async (req, res) => {
-   log(chalk.magenta('[Controller - thetvdbAPI] search'));
+   log(chalk.magentaBright('[Controller - thetvdbAPI] search'));
    
-
    const token = process.env.API_TOKEN;
    const apiUrl = process.env.API_URL;
-
 
    try {
       const response = await axios({
@@ -55,7 +53,7 @@ exports.search = async (req, res) => {
 };
 
 exports.getSeriesDataFromAPI = async (type, seriesId, language = null) => {
-   log(chalk.magenta('[Controller - thetvdbAPI] getSeriesDataFromAPI', type));
+   log(chalk.magentaBright('[Controller - thetvdbAPI] getSeriesDataFromAPI', type));
 
    const token = process.env.API_TOKEN;
 
