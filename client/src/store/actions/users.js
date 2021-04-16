@@ -18,7 +18,6 @@ export const registrerSuccess = (user, data, token) => {
 };
 
 export const loginSuccess = (token, message) => {
-    console.log('loginSuccess:', token, message)
     const decodedToekn = jwt_decode(token);
     const currentTime = Date.now() / 1000;
     if (decodedToekn.exp < currentTime) {

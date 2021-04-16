@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
 
     const userData = await funcs.getUserData(req.body.email);
     if (!userData) {
-        log(chalk.rgb(252, 17, 17)('User Not Found!', err));
+        log(chalk.rgb(252, 17, 17)('User Not Found!'));
         return res.status(404).send({ message: 'User Not Found' });
     }
 

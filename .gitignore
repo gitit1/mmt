@@ -61,7 +61,7 @@ typings/
 # dotenv environment variables file
 .env
 *.env
-
+soManyFandoms.txt
 # next.js build output
 .next
 

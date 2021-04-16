@@ -13,8 +13,8 @@ const Navigator = () => {
     const onLogout = useCallback(() => {
         dispatch(actions.logout());
         history.push(`/`);
-    },[dispatch, history]);
- 
+    }, [dispatch, history]);
+
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -35,22 +35,22 @@ const Navigator = () => {
                     {/* <Nav.Link href="#wanted">Watch List</Nav.Link> */}
                     {/* <Nav.Link href="#wanted">Movies</Nav.Link> */}
                 </Nav>
-            </Navbar.Collapse>
-            <div inline="true">
-                {/* TODO: [MT-1]  */}
-                <NavDropdown alignRight title={<FaRegUserCircle />} id="basic-nav-dropdown"> 
-                    {   !user
-                        ? <NavDropdown.Item href="/user/login">Login</NavDropdown.Item>
-                        : <NavDropdown.Item href="/user/manage">Manage</NavDropdown.Item>
-                    }
-                    <NavDropdown.Divider />
-                    {   !user 
-                        ?  <NavDropdown.Item href="/user/registrer">Registrer</NavDropdown.Item>
-                        :  <NavDropdown.Item href="" onClick={() => onLogout()}>Log Out</NavDropdown.Item>
+                <div inline="true">
+                    {/* TODO: [MT-1]  */}
+                    <NavDropdown alignRight title={<FaRegUserCircle />} id="basic-nav-dropdown">
+                        {!user
+                            ? <NavDropdown.Item href="/user/login">Login</NavDropdown.Item>
+                            : <NavDropdown.Item href="/user/manage">Manage</NavDropdown.Item>
+                        }
+                        <NavDropdown.Divider />
+                        {!user
+                            ? <NavDropdown.Item href="/user/registrer">Registrer</NavDropdown.Item>
+                            : <NavDropdown.Item href="" onClick={() => onLogout()}>Log Out</NavDropdown.Item>
 
-                    }
-                </NavDropdown>
-            </div>
+                        }
+                    </NavDropdown>
+                </div>
+            </Navbar.Collapse>
         </Navbar>
     )
 };

@@ -7,5 +7,6 @@ export {
 } from './users';
 
 export {
-    searchSeries
+    searchSeries,
+    saveSeriesToUserSeriesList
 } from './series';

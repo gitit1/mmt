@@ -18,6 +18,7 @@ class Routing extends Component {
               <Route exact path="/manage/statuses" component={() => <Manage state='statuses' />} />
               <Route exact path="/manage/scanner" component={() => <Manage state='scanner' />} />
               <Route exact path="/series" component={Series} />
+              <Route exact path="/series/search" component={() => <Series state='new' />}/>
               <Route exact path="/wanted" component={Wanted} />
               <Route exact path="/calander" component={Calander} />
               <Redirect to="/" />

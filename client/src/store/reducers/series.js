@@ -1,9 +1,9 @@
 
 
-import { SEARCH_SERIES, ERROR } from '../actions/series';
+import { SEARCH_SERIES, SUCCESS, ERROR } from '../actions/series';
 
 const initialState = {
-    results: '',
+    results: [],
     message: ''
 };
 
@@ -12,8 +12,14 @@ const SeriesReducer = (state = initialState, action) => {
         case SEARCH_SERIES: {
             return {
                 ...state,
-                results: action.user,
+                results: [...action.results],
             }
+        }
+        case SUCCESS: {
+            return {
+                ...state,
+                message: action.message
+            }           
         }
         case ERROR: {
             return {
