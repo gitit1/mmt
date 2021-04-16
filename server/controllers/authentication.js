@@ -1,14 +1,15 @@
 const chalk = require('chalk');
-const bcrypt = require("bcryptjs");
 const log = console.log;
-const User = require('../models/User');
+const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
-const funcs = require('../helpers/functions')
+const funcs = require('../helpers/functions');
+const mongoose = require('../config/db_configuration');
+const User = require('../models/User');
 
 exports.register = async (req, res) => {
     log(chalk.magenta('[Controller] register'));
 
-    const userData = await getUserData(req.body.email);
+    const userData = await funcs.getUserData(req.body.email);
     if (userData) {
         log(chalk.rgb(252, 17, 17)('User already exist!'));
         return res.status(400).send('User already exist!');
@@ -18,9 +19,11 @@ exports.register = async (req, res) => {
             username: req.body.username,
             password: await cryptPasssword(req.body.password),
             email: req.body.email,
+            seriesList: [],
             lastUpdate: funcs.getTodayTime()
         });
-
+        await mongoose.dbWanted.createCollection(req.body.email);
+        await mongoose.dbSeries.createCollection(req.body.email);
         user.save(function (err, user) {
             if (err) {
                 log(chalk.rgb(252, 17, 17)('Error!'));
@@ -29,7 +32,7 @@ exports.register = async (req, res) => {
                         res.status(400).send({ message: 'User already exist!' });
                         break;
                     default:
-                        res.status(400).send({ message: `Other Error: ${err.code}`});
+                        res.status(400).send({ message: `Other Error: ${err.code}` });
                         break;
                 }
             } else {
@@ -44,7 +47,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     log(chalk.magenta('[Controller] login'));
 
-    const userData = await getUserData(req.body.email);
+    const userData = await funcs.getUserData(req.body.email);
     if (!userData) {
         log(chalk.rgb(252, 17, 17)('User Not Found!', err));
         return res.status(404).send({ message: 'User Not Found' });
@@ -62,16 +65,7 @@ exports.login = async (req, res) => {
 
 };
 
-const getUserData = (userEmail) => {
-    log(chalk.bgYellow.black('[Controller] getUserData'));
-    return new Promise(function (resolve, reject) {
-        User.findOne({email: userEmail}, function(err, user) {
-            if(err) reject(err)
-            if(!user) resolve(false)
-            if(user) resolve(user)
-        });
-    });
-}
+
 
 const cryptPasssword = (password) => {
     log(chalk.bgYellow.black('[Controller] cryptPasssword'));
