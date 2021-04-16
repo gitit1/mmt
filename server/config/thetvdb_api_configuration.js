@@ -1,36 +1,52 @@
+// TODO: fix it so i can save the token
 const axios = require('axios');
+const fs = require('fs');
 
 exports.setToken = async () => {
    console.log('Controller: setToken')
 
    let token = process.env.API_TOKEN;
+   const apiUrl = process.env.API_URL;
 
-   if (!token) {
+   // if (!token) {
 
-      try {
-         const res_data = await axios({
-            method: 'post',
-            url: 'https://api4.thetvdb.com/v4/login',
-            data: JSON.stringify({
-               "apikey": process.env.API_KEY,
-               "pin": process.env.API_PIN
-            }),
-            headers: {
-               'Content-Type': 'application/json',
-               'Origin': 'thetvdb.com'
-            }
-         });
+   try {
+      const res = await axios({
+         method: 'post',
+         url: `${apiUrl}/login`,
+         data: JSON.stringify({
+            "apikey": process.env.API_KEY,
+            "pin": process.env.API_PIN
+         }),
+         headers: {
+            'Content-Type': 'application/json',
+            'Origin': 'thetvdb.com'
+         }
+      });
 
-         token = res_data.data.token;
-         console.log('set new token');
+      token = res.data.data.token;
 
-      } catch (error) {
-         console.log(`Error: \n${error}`)
-      }
+      fs.readFile('variables.env', 'utf8', function (err, data) {
+         if (err) {
+            console.log(err)
+         };
+         let linesExceptLast = data.split('\n')
 
-   }else{
-      console.log('token is already established')
+         linesExceptLast = linesExceptLast.slice(0, linesExceptLast.length - 1).join('\n');
+         linesExceptLast = linesExceptLast + `\nAPI_TOKEN='${token}'`;
+
+
+         fs.writeFileSync('variables.env', linesExceptLast);
+      });
+
+      console.log('new token is set');
+
+   } catch (error) {
+      console.log(`Error: \n${error}`)
    }
 
-   process.env.API_TOKEN = token;
+   // }else{
+   //    console.log('token is already established')
+   // }
+
 };

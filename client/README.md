@@ -1,68 +1,320 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# track-my-series
 
-## Available Scripts
 
-In the project directory, you can run:
+## Manage (client)
+## Scanner (server)
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+ - how to devide the folder/files/component?
+ - when login - need to load json file , if dosent find - open a sign up page
+ for now i'm skipping this part
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-----------------------------------------
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+ - add colors to server console
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
+---
 
-### `npm run eject`
+## API && DATABASE
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+😵😵😵😵😵😵😵😵
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+|API-SITE| -- |OUR-API| -- |FILE SYSTEM|
+|:--:|:--:|:--:|:--:|:--:|
+|• series, • episodes | --- | • User, • series  | --- | • Local series, • local episodes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### User
 
-## Learn More
+- Series:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- For each season:
+    - watched
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- For each episode:
+    - saved
+    - watched
+    - if sub (**)
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### Schemas
 
-### Analyzing the Bundle Size
+- [ ] User
+  - IDs series - [id series] Series
+  - series [Array]
+    - saved episodes -  [id episodes] Episode (file system scanner)
+    - wathced episodes - [id episodes] Episode
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Making a Progressive Web App
+- [ ] Series
+  - series api id
+  - number of  seasons
+  - series status
+  - last udpate
+  - series Name
+  - episodes id - [id episodes] Episode
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- [ ] Episode
+  - episode api id
+  - series api id  - [id series] Series
+  - season
+  - name
 
-### Advanced Configuration
+- ~~[ ] File System~~
+  - ~~path~~
+  - ~~series ids~~
+  - ~~episodes ids~~
+___
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## Examples:
 
-### Deployment
+var theDate = new Date(1547227462 * 1000);
+dateString = theDate.toGMTString();
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+```xml
+    {
+    "user": {
+        "id": 1111,
+        "name": "gitit",
+        "language": "en",
+		"general_location": "F://series"
+        "series": {
+            "199859": {
+                "id": 311711,
+				"lastUpdated": 1547227462,
+				"status": "Continuing",
+				"lastWatchedEpisode": "03X13",
+                "Location": ""
+                <!-- "seriesName": "The Good Place", -->
+                "seasonsAndEpisodes": {
+                    "season": {
 
-### `npm run build` fails to minify
+						<!-- season: {
+						"seasonId": '670811'
+                        "seasonNumber": 1,
+                        "numberOfEpisodes": 13,
+						"last_update":12342432,
+						"seriesId": 311711
+						} -->
+                        <!-- "episodes": [
+                            {
+                                "id": 5648788,
+                                "airedSeasonID": 670811,
+                                "airedEpisodeNumber": 1,
+                                "saved": "false",
+                                "watched": "true"
+                            }
+                        ] -->
+						"updated seasonId": '670811'
+                        "updated  watched_episodes": ['1111','2222'...]
+                        "local_saved_episodes" : ['1111','2222'...]
+                    }
+                }
+            }
+        }
+    }
+}
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+**series info form api:**
+https://api.thetvdb.com/series/311711
+
+```xml
+{
+	"id": 311711,
+	"seriesName": "The Good Place",
+	"aliases": [],
+	"banner": "graphical/5b7efe73ec3bd.jpg",
+	"seriesId": "199859",
+	"status": "Continuing",
+	"firstAired": "2016-09-19",
+	"network": "NBC",
+	"networkId": "",
+	"runtime": "25",
+	"genre": ["Comedy", "Fantasy"],
+	"overview": "Eleanor Shellstrop is an ordinary woman who, through an extraordinary string of events, enters the afterlife where she comes to realize that she hasn't been a very good person. With the help of her wise afterlife mentor, she's determined to shed her old way of living and discover the awesome (or at least the pretty good) person within.",
+	"lastUpdated": 1547156594,
+	"airsDayOfWeek": "Thursday",
+	"airsTime": "9:30 PM",
+	"rating": "TV-14",
+	"imdbId": "tt4955642",
+	"zap2itId": "EP02349044",
+	"added": "2016-05-15 11:55:18",
+	"addedBy": 235,
+	"siteRating": 8.7,
+	"siteRatingCount": 26,
+	"slug": "the-good-place"
+}
+```
+**episodes info form api:**
+
+https://api.thetvdb.com/series/311711/episodes
+https://api.thetvdb.com/series/311711/episodes?page=2
+
+```xml
+{
+	"links": {
+		"first": 1,
+		"last": 3,
+		"next": null,
+		"prev": null
+	},
+	"data": [{
+			"id": 5648788,
+			"airedSeason": 1,
+			"airedSeasonID": 670811,
+			"airedEpisodeNumber": 1,
+			"episodeName": "Everything is Fine",
+			"firstAired": "2016-09-19",
+			"guestStars": [],
+			"director": "Drew Goddard",
+			"directors": ["Drew Goddard"],
+			"writers": ["Michael Schur"],
+			"overview": "Newly-deceased Eleanor Shellstrop is sent to the Good Place, but only by mistake; Eleanor is determined to become a better person in her afterlife with help from friends Chidi and Janet; Eleanor tries to prove to Chidi that she's worthy of his help.",
+			"language": {
+				"episodeName": "en",
+				"overview": "en"
+			},
+			"productionCode": "",
+			"showUrl": "",
+			"lastUpdated": 1510523318,
+			"dvdDiscid": "",
+			"dvdSeason": null,
+			"dvdEpisodeNumber": 1,
+			"dvdChapter": null,
+			"absoluteNumber": 1,
+			"filename": "episodes/311711/5648788.jpg",
+			"seriesId": 311711,
+			"lastUpdatedBy": 480497,
+			"airsAfterSeason": null,
+			"airsBeforeSeason": null,
+			"airsBeforeEpisode": null,
+			"thumbAuthor": 368086,
+			"thumbAdded": "2016-09-20 06:42:17",
+			"thumbWidth": "400",
+			"thumbHeight": "225",
+			"imdbId": "tt5789204",
+			"siteRating": 7.9,
+			"siteRatingCount": 14
+		}, {
+			"id": 5649281,
+			"airedSeason": 1,
+			"airedSeasonID": 670811,
+			"airedEpisodeNumber": 2,
+			"episodeName": "Flying",
+			"firstAired": "2016-09-19",
+			"guestStars": [],
+			"director": "Michael McDonald",
+			"directors": ["Michael McDonald"],
+			"writers": ["Alan Yang"],
+			"overview": "Eleanor tries to prove to Chidi that she is worthy of his help. Meanwhile, Tahani and Jianyu try to help Michael feel better about the unknown flaw in his Neighborhood.",
+			"language": {
+				"episodeName": "en",
+				"overview": "en"
+			},
+			"productionCode": "",
+			"showUrl": "",
+			"lastUpdated": 1510523335,
+			"dvdDiscid": "",
+			"dvdSeason": null,
+			"dvdEpisodeNumber": 2,
+		 	"dvdChapter": null,
+			"absoluteNumber": 2,
+			"filename": "episodes/311711/5649281.jpg",
+			"seriesId": 311711,
+			"lastUpdatedBy": 480497,
+			"airsAfterSeason": null,
+			"airsBeforeSeason": null,
+			"airsBeforeEpisode": null,
+			"thumbAuthor": 368086,
+			"thumbAdded": "2016-09-20 06:50:01",
+			"thumbWidth": "400",
+			"thumbHeight": "225",
+			"imdbId": "tt5789208",
+			"siteRating": 8.3,
+			"siteRatingCount": 12
+		}
+	]
+}
+```
+___
+
+## TODO List:
+
+## App Fncionality - per user
+ - [ ] manage series
+	- [ ] add serie
+	- [ ] edit serie
+	- [ ] delete series
+	- [ ] option to mark episodes as watched
+	- [ ] show each episode/ season id saved and where
+	- [ ] if series dosen't have info - let me save info manually (?)
+	- [ ] language control - heb/sub (?)
+ - [ ] file system scanner - marked series/season/episode if saved
+ - [ ] lists:
+ 	- [ ] list of latest episoded that aired
+ 	- [ ] list of unwached episodes
+ 	- [ ] list of unsaved seasons/episodes
+ - [ ] later - file system - check for subtitle
+ - [ ] Series search
+	- [ ] work both on DB and API
+	- [ ] filters - by year, genre,last updated....
+	- [ ] directly add series from search (watch list)
+	- [ ] watch status - "watched" , "watching" , "finished" , "On-Hold"
+	- [ ] series status - "ended" , "running"
+ - [ ]
+
+## client:
+ - [ ] fixing the current structure
+ - [ ] 2
+ - [ ] 3
+
+
+## server:
+- [ ]
+- [ ] 2
+- [ ] 3
+
+## File System:
+- [ ] 1
+- [ ] 2
+- [ ] 3
+
+## DB:
+- [ ] build schema to user
+- [ ] build schema to series
+- [ ] build schema to episodes
+- [ ] connect them all (?)
+
+
+## Other:
+- [ ] UserId - as hashmaped
+- [ ] 2
+- [ ] 3
+___
+## Helpful Links:
+ - **MarkDown:**
+	- [Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+ - **Structure:**
+  	- [node-folder-structure-options.md](https://gist.github.com/lancejpollard/1398757)
+ - **TheTVDB API**
+	- [TheTVDB API v2](https://api.thetvdb.com)
+	- [TheTVDB.com](https://thetvdb.com)
+- **Register/Authenticate/Login/Manage User**
+  - [Register/Authenticate/Login/Manage User](https://www.sitepoint.com/user-authentication-mean-stack/)
+___
+
+![hello](https://media1.giphy.com/media/Cmr1OMJ2FN0B2/200w.webp?cid=3640f6095c37c5096e573746325c6362)
+![hello](https://media3.giphy.com/media/ASd0Ukj0y3qMM/200.webp?cid=3640f6095c37c5096e573746325c6362)
+![hello](https://media1.giphy.com/media/Cmr1OMJ2FN0B2/200w.webp?cid=3640f6095c37c5096e573746325c6362)
+![hello](https://media2.giphy.com/media/DCOgUFTPoCWqGLoyc7/200w.webp?cid=3640f6095c37c5096e573746325c6362)
+![hello](https://media3.giphy.com/media/ASd0Ukj0y3qMM/200.webp?cid=3640f6095c37c5096e573746325c6362)
+![hello](https://media2.giphy.com/media/DCOgUFTPoCWqGLoyc7/200w.webp?cid=3640f6095c37c5096e573746325c6362)
+![hello](https://media3.giphy.com/media/XYot661SFS62c/100.webp?cid=3640f6095c37c50a556d663677fa8be7)
+![hello](https://media3.giphy.com/media/fTI9mBoWLef8k/200w.webp?cid=3640f6095c37c50a556d663677fa8be7)
+![hello](https://media3.giphy.com/media/XYot661SFS62c/100.webp?cid=3640f6095c37c50a556d663677fa8be7)

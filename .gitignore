@@ -37,6 +37,8 @@ backups/
 node_modules/
 jspm_packages/
 
+config/keys.js
+config/
 
 # TypeScript v1 declaration files
 typings/
@@ -59,10 +61,11 @@ typings/
 # dotenv environment variables file
 .env
 *.env
-
+soManyFandoms.txt
 # next.js build output
 .next
 
-
+config/
+config/keys.js
 package.json*
 package-lock.json*

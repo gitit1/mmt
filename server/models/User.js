@@ -1,9 +1,6 @@
-const mongoose = require('mongoose');
-var crypto = require('crypto');
-var jwt = require('jsonwebtoken');
+const mongoose = require('../config/db_configuration');
 
 const Schema = mongoose.Schema;
-
 
 const userSchema = new Schema({
    username: {type: String, unique: true},
@@ -13,9 +10,10 @@ const userSchema = new Schema({
       type: Date,
       default: Date.now
    },
-   lastUpdate: {type: Number}
+   lastUpdate: {type: Number},
+   seriesList: []
 });
 
-let User = mongoose.model('User', userSchema);
+let User = mongoose.dbUsers.model('User', userSchema);
 
 module.exports = User;
