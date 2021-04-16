@@ -48,7 +48,7 @@ const setSeriesDataObject = async (fullId, seriesId) => {
             name: character.name,
             actorId: character.peopleId,
             image: character.image
-        }).filter(Boolean),
+        }).filter(character => character.name !== null),
         lastUpdate: new Date().getTime(),
         lastAPIUpdate: new Date().getTime(),
         banners: generalData.artworks.map(art => (art.type === 1) && { image: art.image, thumb: art.thumbnail }).filter(Boolean),
