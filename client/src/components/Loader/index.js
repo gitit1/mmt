@@ -1,12 +1,12 @@
 import React from 'react';
 import './loader.scss'
 
-const Loader = (props) => {
+const Loader = ({className, type}) => {
     return (
         <>
             {
-                props.loaderType === 'page' ?
-                    <div className="lds-default">
+                type === 'page' ?
+                    <div className={`lds-default ${className}`}>
                         <div></div>
                         <div></div>
                         <div></div>
@@ -21,7 +21,7 @@ const Loader = (props) => {
                         <div></div>
                     </div>
                     :
-                    <div className="lds-ellipsis">
+                    <div className={`lds-ellipsis ${className}`}>
                         <div></div>
                         <div></div>
                         <div></div>

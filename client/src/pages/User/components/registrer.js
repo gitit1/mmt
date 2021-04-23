@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as actions from '../../../store/actions';
-import { Card, FormGroup, FormLabel, FormControl, Alert, Button } from 'react-bootstrap';
+import { Card, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 const Registrer = () => {
     const [username, setUsername] = useState('');

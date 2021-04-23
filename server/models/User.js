@@ -11,7 +11,10 @@ const userSchema = new Schema({
       default: Date.now
    },
    lastUpdate: {type: Number},
-   seriesList: []
+   seriesList: [],
+   watchTags: [
+      
+   ]
 });
 
 let User = mongoose.dbUsers.model('User', userSchema);

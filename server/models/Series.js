@@ -6,13 +6,13 @@ const Schema = mongoose.Schema;
 const seriesSchema = new Schema({
     series_id: { type: Number, unique: true, required: true },
     full_id: { type: String, unique: true, required: true },
-    series_name: { type: String, unique: true, required: true },
-    series_name_heb: { type: String },
+    name: { type: String, unique: true, required: true },
+    name_heb: { type: String },
     desc_eng: { type: String },
     desc_heb: { type: String },
     start_year: { type: Number },
     end_year: { type: Number },
-    series_status: { type: Number },
+    status: { type: Number },
     lastUpdate: { type: Number },
     lastAPIUpdate: { type: Number },
     next_episode_date: { type: Number },
@@ -29,7 +29,7 @@ const seriesSchema = new Schema({
     seasons: [
         {
             id: { type: Number, unique: true }, 
-            season_number: { type: Number },
+            number: { type: Number },
             posters: [],
             background: [],
             episodes: [
