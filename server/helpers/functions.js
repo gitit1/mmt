@@ -22,7 +22,6 @@ exports.getUserData = (userEmail) => {
     });
 }
 
-
 exports.withoutTime = (dateTime) => {
     var date = new Date(dateTime.getTime());
     date.setHours(0, 0, 0, 0);

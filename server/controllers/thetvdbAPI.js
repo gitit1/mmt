@@ -1,8 +1,7 @@
 const axios = require('axios');
 const chalk = require('chalk');
 const log = console.log;
-const User = require('../models/User');
-const Series = require('../models/Series');
+const mongoose = require('../config/db_configuration');
 const { APIENUMS } = require('../helpers/enums');
 
 const getUrl = (type, id, language) => {
@@ -27,7 +26,7 @@ const getUrl = (type, id, language) => {
 
 exports.search = async (req, res) => {
    log(chalk.magentaBright('[Controller - thetvdbAPI] search'));
-   
+
    const token = process.env.API_TOKEN;
    const apiUrl = process.env.API_URL;
 
@@ -42,7 +41,12 @@ exports.search = async (req, res) => {
          }
       });
       if (response.status === 200) {
-         res.send(response.data.data)
+         const idsResults = response.data.data.map(series => { return series.id });
+         mongoose.dbSeries.collection(req.params.userEmail).find({ full_id: { $in: idsResults } }).toArray(async function (err, results) {
+            if (err) throw err;
+            const alreadyExists = results.map(series => { return series.full_id })
+            res.send([response.data.data, alreadyExists])
+         });
       } else (
          res.send(404)
       )

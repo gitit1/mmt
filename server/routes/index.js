@@ -11,14 +11,14 @@ try {
     router.post('/users/:userEmail/new', authentication.register); 
 
     // User - data  
-    //router.get('/users/:userEmail/series/', authentication.register); // get all series of user
-    router.post('/users/:userEmail/series/:seriesId', userData.saveSeriesToUserSeries); // post new series to user data
+    router.get('/users/:userEmail/series/search/:searchTerm', thetvdbAPI.search);  // search series for user
+    router.post('/users/:userEmail/series/', userData.getSeries); // get all series of user
+    router.post('/users/:userEmail/series/:seriesId', userData.saveSeries); // post new series to user data
     //router.put('/users/:userEmail/series/:seriesId', authentication.register); // update a series of user 
     //router.delete('/users/:userEmail/series/:seriesId', authentication.register); // delete a series from user list
     
 
     //API THETVDB
-    router.get('/series/search/:searchTerm', thetvdbAPI.search); 
 
     // Series - Scanner:
     router.get('/scanner',scanner.startScan)
